@@ -2,25 +2,22 @@ from flask import Flask, render_template, request
 import pickle
 from sklearn.preprocessing import StandardScaler
 import csv
+import glob
 
 app = Flask(__name__)
 model = pickle.load(open('Basic_Classifier.sav', 'rb'))
 model1 = pickle.load(open('High_Regression_Log_Life.sav', 'rb'))
 model2 = pickle.load(open('Low_Regression.sav', 'rb'))
 
-
-
 @app.route('/',methods=['GET'])
 def Home():
     return render_template('result.html')
+# standard_to = StandardScaler()
 
-
-standard_to = StandardScaler()
 @app.route("/", methods=['POST'])
 def predict():
     if request.method == 'POST':
-
-        with open("E:\\Data science\MOCK_Test\\1-09-2021\\Battery_life_final\\test_files\\test_file1.csv") as file:
+        with open("E:\\Data science\MOCK_Test\\1-09-2021\\Battery_life_final\\test_files\\test_file2.csv") as file:
             reader = csv.DictReader(file)
             resp = request.form
             for row in reader:
